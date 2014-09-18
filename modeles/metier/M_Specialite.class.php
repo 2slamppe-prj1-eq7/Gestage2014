@@ -21,7 +21,7 @@ class M_Specialite{
             return $this->id;
         }
 
-        public function getLibellecCourt() {
+        public function getLibelleCourt() {
             return $this->libellecCourt;
         }
 
@@ -33,7 +33,7 @@ class M_Specialite{
             $this->id = $id;
         }
 
-        public function setLibellecCourt($libellecCourt) {
+        public function setLibelleCourt($libellecCourt) {
             $this->libellecCourt = $libellecCourt;
         }
 

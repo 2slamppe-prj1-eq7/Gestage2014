@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 require_once("../includes/parametres.inc.php");
 require_once("../includes/fonctions.inc.php");
 
