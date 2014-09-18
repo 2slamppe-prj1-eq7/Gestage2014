@@ -66,11 +66,11 @@
             <label for="option">Specialité :</label>
             <select name ="option" id="option">
                 <option value=""></option>
-                <?
+                <?php
 //création du contenu du select pour les spécialités des étudiants
                 
                 foreach ($this->lireDonnee('lesSpecialites') as $spe) {
-                    echo'<option value="' . $spe->getId() . '">' . $spe->getLibelleCourt() . '</option>'; //echo de la ligne 
+                    echo '<option value="' . $spe->getId() . '">' . $spe->getLibelleCourt() . '</option>'; //echo de la ligne 
                 }
                 ?>
             </select>
