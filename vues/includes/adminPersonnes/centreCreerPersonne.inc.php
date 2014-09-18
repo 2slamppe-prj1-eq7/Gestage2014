@@ -85,7 +85,7 @@
 
     <!-- Information nécessaire uniquement aux maitre de stage -->
 
-    <div id="Formulaire_MaitreStage" style="visibility:hidden" height="0">
+    <div id="Formulaire_MaitreStage" style="visibility:hidden;">
         <fieldset>
             <legend>Choisir l'entreprise :</legend>
 
