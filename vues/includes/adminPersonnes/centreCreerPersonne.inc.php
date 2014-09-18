@@ -54,7 +54,7 @@
 
     <!-- Information nécessaire uniquement aux étudiants -->
 
-    <div id="Formulaire_Etudiant" style="visibility:hidden" height="0">
+    <div id="Formulaire_Etudiant" style="visibility:hidden">
         <fieldset>
             <legend>Informations specifiques aux étudiant</legend>
 
