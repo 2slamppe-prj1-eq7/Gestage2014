@@ -60,11 +60,24 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         $daoPers->connecter();
         $pdo = $daoPers->getPdo();
         $daoPers->insert($pers);
+        header('Location: ?controleur=AdminPersonnes&action=afficherPersonne&idPersonne='.$daoPers->getOneByLogin($login)->getId());
         
     }
     
     function afficherPersonne(){
-        
+        $this->vue = new V_Vue("../vues/templates/template.inc.php");
+        //$this->vue->ecrireDonnee('centre',"../vues/includes/accueil/centreAccueil.inc.php");
+        // les données
+        $this->vue->ecrireDonnee('titreVue',"GestStage : Afficher une personne");
+        $daoPers = new M_DaoPersonne();
+        $daoPers->connecter();
+        $idPersonne = $_GET['idPersonne'];
+        $personne = $daoPers->getOneById($idPersonne);
+        $daoPers->deconnecter();
+        //var_dump($personne);die();
+        $this->vue->ecrireDonnee('utilisateur', $personne);
+        $this->vue->ecrireDonnee('centre', "../vues/includes/adminPersonnes/centreAfficherInformationsUtilisateur.inc.php");
+        $this->vue->afficher();
     } 
     
     
