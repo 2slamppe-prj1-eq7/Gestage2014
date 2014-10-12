@@ -2,7 +2,7 @@
 
 // Accès base de données
 try {
-    $pdo = new PDO('mysql:host=localhost;dbname=gestagetest', 'root', 'joliverie');
+    $pdo = new PDO('mysql:host=localhost;dbname=gestage', 'root', 'joliverie');
 } catch (Exception $e) {
     echo 'Echec de la connexion à la base de données';
     exit();
@@ -13,7 +13,7 @@ try {
  * Table ANNEESCOL
  * 
  */
-echo "<h1>Année scolaire</h1>";
+echo "-- Annee scolaire";
 echo "<br>";
 echo "<br>";
 
@@ -25,7 +25,7 @@ for ($i = 2000; $i < 2030; $i++) {
 
     $annee_scolaire = $i . "-" . ($i + 1);
 
-    $sql = "INSERT INTO `ANNEESCOL` (`ANNEESCOL`)VALUES ('$annee_scolaire')";
+    $sql = "INSERT INTO `ANNEESCOL` (`ANNEESCOL`)VALUES ('$annee_scolaire');";
     echo $sql;
     $pdo->query($sql);
     echo "<br>";
@@ -35,7 +35,7 @@ for ($i = 2000; $i < 2030; $i++) {
 /**
  * Table Spécialité
  */
-echo "<h1>Spécialité</h1>";
+echo "-- Specialite";
 echo "<br>";
 echo "<br>";
 
@@ -69,7 +69,7 @@ for ($i = 0; $i <= 1; $i++) {
 /**
  * Table filière
  */
-echo "<h1>Filière</h1>";
+echo "-- Filiere";
 echo "<br>";
 echo "<br>";
 
@@ -80,7 +80,7 @@ $sql = "INSERT INTO `FILIERE` (`NUMFILIERE`, `LIBELLEFILIERE`) VALUES
 (3, 'Informatique de Gestion'),
 (4, 'Services Informatiques aux Organisations'),
 (5, 'Diplome de Comptabilite et de Gestion'),
-(6, 'Formation Complementaire d''Initiative Locale')";
+(6, 'Formation Complementaire d''Initiative Locale');";
 
 echo $sql;
 $pdo->query($sql);
@@ -93,7 +93,7 @@ echo "<br>";
 /**
  * Table classe 
  */
-echo "<h1>Classe</h1>";
+echo "-- Classe";
 echo "<br>";
 echo "<br>";
 
@@ -135,7 +135,7 @@ for ($i = 0; $i < count($classe); $i++) {
  * Table role
  */
 
-echo "<h1>Role</h1>";
+echo "-- Role";
 echo "<br>";
 echo "<br>";
 
@@ -146,7 +146,7 @@ $sql="INSERT INTO `ROLE` (`IDROLE`, `RANG`, `LIBELLE`) VALUES
 (2, 2, 'Secretaire'),
 (3, 3, 'Professeur'),
 (4, 4, 'Etudiant'),
-(5, 5, 'MaitreDeStage')";
+(5, 5, 'MaitreDeStage');";
 
 
 echo $sql;
@@ -157,7 +157,7 @@ echo "<br>";
 /**
  * TABLE PERSONNE
  */
-echo "<h1>Classe SLAM</h1>";
+echo "-- Classe SLAM";
 echo "<br>";
 echo "<br>";
 
@@ -232,7 +232,7 @@ for ($i = 0; $i < count($listePrenom); $i++) {
     `NUMCLASSE`
     )
     VALUES 
-    ('$ANNEESCOL',$IDPERSONNE,'$NUMCLASSE')";
+    ('$ANNEESCOL',$IDPERSONNE,'$NUMCLASSE');";
     echo $sql2;
     $pdo->query($sql2);
     echo "<br>";
@@ -240,7 +240,7 @@ for ($i = 0; $i < count($listePrenom); $i++) {
 }
 
 
-echo "<h1>Classe SISR</h1>";
+echo "-- Classe SISR";
 echo "<br>";
 echo "<br>";
 
@@ -317,7 +317,7 @@ for ($i = 0; $i < count($listePrenom); $i++) {
     `NUMCLASSE`
     )
     VALUES 
-    ('$ANNEESCOL',$IDPERSONNE,'$NUMCLASSE')";
+    ('$ANNEESCOL',$IDPERSONNE,'$NUMCLASSE');";
     echo $sql2;
     $pdo->query($sql2);
     echo "<br>";
@@ -325,7 +325,7 @@ for ($i = 0; $i < count($listePrenom); $i++) {
 }
 
 
-echo "<h1>Professeur</h1>";
+echo "-- Professeur";
 echo "<br>";
 echo "<br>";
 //Insertion Professeur
@@ -397,7 +397,7 @@ for ($i = 0; $i < count($listePrenom); $i++) {
  * Table Orgnisation
  * 
  */
-echo "<h1>Organisation</h1>";
+echo "-- Organisation";
 echo "<br>";
 echo "<br>";
 //Insertion Organisation
