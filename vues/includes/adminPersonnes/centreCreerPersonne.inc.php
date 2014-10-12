@@ -9,6 +9,14 @@
 <form method="post" action=".?controleur=AdminPersonnes&action=validationCreerPersonne" name="CreateUser">
     <h1>Creation d'une personne</h1>
     <!-- Choix du type de compte pour afficher les différentes informations pour créer un compte spécifique -->
+    
+    <?php
+    // message de validation de création ou non 
+    if (!is_null($this->lireDonnee('message'))) {
+        echo "<strong style=\"color:red;\">" . $this->lireDonnee('message') . "</strong>";
+    }
+    ?>
+    
     <fieldset>
 
         <legend>Type de compte</legend>

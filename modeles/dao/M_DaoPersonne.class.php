@@ -229,6 +229,27 @@ class M_DaoPersonne extends M_DaoGenerique {
         return $retour;
     }
 
+    
+    
+    function verif($row, $objet) {
+        $retour = null;
+        $ok = 1;
+        try {
+            $sql = 'SELECT ' . $row . ' FROM ' . $this->nomTable . ' WHERE ' . $row . '="' . $objet . '"';
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $retour = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!empty($retour)) {
+
+                $ok = 0;
+            }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $ok;
+    }
+
 }
 
 
