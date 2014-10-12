@@ -134,13 +134,12 @@ for ($i = 0; $i < count($classe); $i++) {
 /**
  * Table role
  */
-
 echo "-- Role";
 echo "<br>";
 echo "<br>";
 
 
-$sql="INSERT INTO `ROLE` (`IDROLE`, `RANG`, `LIBELLE`) VALUES
+$sql = "INSERT INTO `ROLE` (`IDROLE`, `RANG`, `LIBELLE`) VALUES
 (0, 0, 'Autre'),
 (1, 1, 'Administrateur'),
 (2, 2, 'Secretaire'),
