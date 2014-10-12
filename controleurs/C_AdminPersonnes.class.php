@@ -80,7 +80,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
             //Connexion et insert bdd
             $daoPers->connecter();
             $pdo = $daoPers->getPdo();
-            $daoPers->insert($pers);
+            
             if ($verif != 0) {
                 if ($daoPers->insert($pers) == true) {
                     header('Location: ?controleur=AdminPersonnes&action=afficherPersonne&idPersonne=' . $daoPers->getOneByLogin($login)->getId());
