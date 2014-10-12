@@ -230,7 +230,12 @@ class M_DaoPersonne extends M_DaoGenerique {
     }
 
     
-    
+    /**
+     * 
+     * @param type $row = champ à vérifier
+     * @param type $objet = données récupérés à valider pour savoir si doublon
+     * @return int 
+     */
     function verif($row, $objet) {
         $retour = null;
         $ok = 1;
