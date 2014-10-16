@@ -15,9 +15,9 @@ class M_DaoEntreprise extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         
-        // on construit l'objet Personne 
+        // on construit l'objet Entreprise
         $retour = new M_Entreprise(
-                $enreg['IDPERSONNE'], $laSpecialite, $leRole, $enreg['CIVILITE'], $enreg['NOM'], $enreg['PRENOM'], $enreg['NUM_TEL'], $enreg['ADRESSE_MAIL'], $enreg['NUM_TEL_MOBILE'], $enreg['ETUDES'], $enreg['FORMATION'], $enreg['LOGINUTILISATEUR'], $enreg['MDPUTILISATEUR']
+                $enreg['id'], $enreg['nom'], $enreg['ville'], $enreg['adresse'], $enreg['cp'], $enreg['tel'], $enreg['fax'], $enreg['fj'], $enreg['activite']
         );
         return $retour;
     }
@@ -31,23 +31,16 @@ class M_DaoEntreprise extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         // le rôle et la spécialité seront mis à jour séparément
-        if (!is_null($objetMetier->getRole())) {
-            $idRole = $objetMetier->getRole()->getId();
-        } else {
-            $idRole = 0; // "Autre" (simple visiteur)
-        }
         $retour = array(
-            ':idRole' => $idRole,
-            ':civilite' => $objetMetier->getCivilite(),
+            ':id' => $objetMetier->getId(),
             ':nom' => $objetMetier->getNom(),
-            ':prenom' => $objetMetier->getPrenom(),
-            ':numTel' => $objetMetier->getNumTel(),
-            ':mail' => $objetMetier->getMail(),
-            ':mobile' => $objetMetier->getMobile(),
-            ':etudes' => $objetMetier->getEtudes(),
-            ':formation' => $objetMetier->getFormation(),
-            ':login' => $objetMetier->getLogin(),
-            ':mdp' => $objetMetier->getMdp(),
+            ':ville' => $objetMetier->getVille(),
+            ':adresse' => $objetMetier->getAdresse(),
+            ':cp' => $objetMetier->getCp(),
+            ':tel' => $objetMetier->getTel(),
+            ':fax' => $objetMetier->getFax(),
+            ':fj' => $objetMetier->getFj(),
+            ':activite' => $objetMetier->getActivite(),
         );
         return $retour;
     }
