@@ -16,16 +16,18 @@ class C_Entreprise extends C_ControleurGenerique {
     function afficherEntreprise(){
         
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
-        //$this->vue->ecrireDonnee('centre',"../vues/includes/accueil/centreAccueil.inc.php");
-        
+               
 
         // les données
         $this->vue->ecrireDonnee('titreVue', "GestStage : Afficher une entreprise");
+        $this->vue->ecrireDonnee('centre', "../vues/includes/entreprise/centreAfficherEntreprise.php");
+        
         $daoEntreprise = new M_DaoEntreprise();
         $daoEntreprise->connecter();
         $entreprise = $daoEntreprise->getOneById(1);
         
-        var_dump($entreprise);
+        
+         $this->vue->afficher();
        
     }
     
@@ -58,6 +60,8 @@ class C_Entreprise extends C_ControleurGenerique {
         $pdo = $daoEntreprise->getPdo();
         
         $daoEntreprise->insert($entreprise);
+        
+        
         
         
 
