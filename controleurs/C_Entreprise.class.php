@@ -32,15 +32,27 @@ class C_Entreprise extends C_ControleurGenerique {
     function creerEntreprise(){
         
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
-        
         $this->vue->ecrireDonnee('titreVue', 'Créer une entreprise');
-        
-        
         $this->vue->ecrireDonnee('centre', "../vues/includes/entreprise/centreCreerUneEntreprise.php");
         
         
         $this->vue->afficher();
         
+    }
+    
+    function  validationCreerEntreprise(){
+        
+        $nom=$_POST['nom'];
+        $ville=$_POST['ville'];
+        $adrese=$_POST['adresse'];
+        $cp=$_POST['cp'];
+        $_POST['tel'];
+        $_POST['fax'];
+        $_POST['fj'];
+        $_POST['activite'];
+        
+        
+
     }
     
     
