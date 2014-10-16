@@ -11,7 +11,7 @@
             echo "<h2>Utilisateur : <i>" . $this->lireDonnee('loginAuthentification') . "</i></h2>";
             //menu de gauche présent pour tous les utilisateurs
             echo "<li><a href=\".?controleur=utilisateur&action=coordonnees\">-Mes informations</a></li>";
-            echo "<li><a href=\".?controleur=utilisateur&action=afficherEntreprise\">-Afficher les entreprises</a></li>";
+            echo "<li><a href=\".?controleur=entreprise&action=afficherEntreprise\">-Afficher les entreprises</a></li>";
         } else {
             echo "<li><a href=\".?controleur=connexion&action=seConnecter\">Se connecter</a></li>";
         }
@@ -26,7 +26,7 @@
         if (!is_null($this->lireDonnee('loginAuthentification')) && MaSession::get('role') != 2) {
             //ajout menu de gauche pour les utilisateurs autres que secrétaire
             echo "<hr>";
-            echo "<li><a href=\".?controleur=utilisateur&action=creerEntreprise\">-Ajouter une entreprise</a></li>";
+            echo "<li><a href=\".?controleur=entreprise&action=creerEntreprise\">-Ajouter une entreprise</a></li>";
             echo "<li><a href=\".?controleur=utilisateur&action=MajEntreprise\">-M.A.J entreprise</a></li>";
             echo "<hr>";
             echo "<li><a href=\".?controleur=utilisateur&action=ajoutStage\">-Ajouter un stage</a></li>";
