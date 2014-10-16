@@ -14,21 +14,9 @@ class M_DaoEntreprise extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        // on instancie les objets Role et Specialite s'il y a lieu
-        $leRole = null;
-        if (isset($enreg['LIBELLE'])) {
-            $daoRole = new M_DaoRole();
-            $daoRole->setPdo($this->pdo);
-            $leRole = $daoRole->getOneById($enreg['IDROLE']);
-        }
-        $laSpecialite = null;
-        if (isset($enreg['LIBELLELONGSPECIALITE'])) {
-            $daoSpe = new M_DaoSpecialite();
-            $daoSpe->setPdo($this->pdo);
-            $laSpecialite = $daoSpe->getOneById($enreg['IDSPECIALITE']);
-        }
+        
         // on construit l'objet Personne 
-        $retour = new M_Personne(
+        $retour = new M_Entreprise(
                 $enreg['IDPERSONNE'], $laSpecialite, $leRole, $enreg['CIVILITE'], $enreg['NOM'], $enreg['PRENOM'], $enreg['NUM_TEL'], $enreg['ADRESSE_MAIL'], $enreg['NUM_TEL_MOBILE'], $enreg['ETUDES'], $enreg['FORMATION'], $enreg['LOGINUTILISATEUR'], $enreg['MDPUTILISATEUR']
         );
         return $retour;
