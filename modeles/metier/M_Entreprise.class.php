@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of M_Personne
+ * Description of M_Entreprise
  *
  * @author btssio
  */
