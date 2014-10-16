@@ -44,12 +44,20 @@ class C_Entreprise extends C_ControleurGenerique {
         
         $nom=$_POST['nom'];
         $ville=$_POST['ville'];
-        $adrese=$_POST['adresse'];
+        $adresse=$_POST['adresse'];
         $cp=$_POST['cp'];
-        $_POST['tel'];
-        $_POST['fax'];
-        $_POST['fj'];
-        $_POST['activite'];
+        $tel=$_POST['tel'];
+        $fax=$_POST['fax'];
+        $fj=$_POST['fj'];
+        $activite=$_POST['activite'];
+        
+        
+        $entreprise= new M_Entreprise(null, $nom, $ville, $adresse, $cp, $tel, $fax, $fj, $activite);
+        $daoEntreprise = new M_DaoEntreprise();
+        $daoEntreprise->connecter();
+        $pdo = $daoEntreprise->getPdo();
+        
+        $daoEntreprise->insert($entreprise);
         
         
 
