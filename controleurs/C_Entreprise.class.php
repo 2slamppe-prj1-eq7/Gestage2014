@@ -23,7 +23,7 @@ class C_Entreprise extends C_ControleurGenerique {
         $this->vue->ecrireDonnee('titreVue', "GestStage : Afficher une entreprise");
         $daoEntreprise = new M_DaoEntreprise();
         $daoEntreprise->connecter();
-        $entreprise = $daoEntreprise->getAll();
+        $entreprise = $daoEntreprise->getOneById(1);
         
         var_dump($entreprise);
        
