@@ -4,7 +4,7 @@
  *
  * @author btssio
  */
-class M_Personne {
+class M_Entreprise{
     private $id;
     private $nom;
     private $ville;
