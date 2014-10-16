@@ -1,9 +1,7 @@
 ﻿<!-- VARIABLES NECESSAIRES -->
 <!-- $this->message : à afficher sous le formulaire -->
 <?php 
-
 $unUtilisateur = $this->lireDonnee('utilisateur');
-//var_dump($unUtilisateur);die();
 ?>
     <h1>Informations personnelles</h1>
     <fieldset>
