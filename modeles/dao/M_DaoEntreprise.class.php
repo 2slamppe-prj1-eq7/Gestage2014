@@ -17,7 +17,7 @@ class M_DaoEntreprise extends M_DaoGenerique {
         
         // on construit l'objet Entreprise
         $retour = new M_Entreprise(
-                $enreg['id'], $enreg['nom'], $enreg['ville'], $enreg['adresse'], $enreg['cp'], $enreg['tel'], $enreg['fax'], $enreg['fj'], $enreg['activite']
+                $enreg['IDORGANISATION'], $enreg['NOM_ORGANISATION'], $enreg['VILLE_ORGANISATION'], $enreg['ADRESSE_ORGANISATION'], $enreg['CP_ORGANISATION'], $enreg['TEL_ORGANISATION'], $enreg['FAX_ORGANISATION'], $enreg['FORMEJURIDIQUE'], $enreg['ACTIVITE']
         );
         return $retour;
     }
