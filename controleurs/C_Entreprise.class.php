@@ -25,9 +25,9 @@ class C_Entreprise extends C_ControleurGenerique {
         $daoEntreprise = new M_DaoEntreprise();
         $daoEntreprise->connecter();
         $entreprise = $daoEntreprise->getOneById($_GET["idEntreprise"]);
-        
-        $this->vue->ecrireDonnee('entreprise', $entreprise);      
-       
+
+        $this->vue->ecrireDonnee('entreprise', $entreprise);
+
         $this->vue->afficher();
     }
 
@@ -58,27 +58,31 @@ class C_Entreprise extends C_ControleurGenerique {
         $message = Array();
         $validation = true;
         $champsNonObligatoires = array('fax', 'activite');
-           
-                foreach ($_POST as $champ => $valeur) {
-                if (!in_array($champ, $champsNonObligatoires)) {
-                    if (empty($valeur)) {
-                        $message[$champ] = "Champ non rempli : " . $champ;
-                        $validation = false;
-                    }
+
+        foreach ($_POST as $champ => $valeur) {
+            if (!in_array($champ, $champsNonObligatoires)) {
+                if (empty($valeur)) {
+                    $message[] = "Champ non rempli : " . $champ;
+                    $validation = false;
                 }
             }
-        
-        //Télépone
-        if(preg_match('`^0[1-9]([-. ]?[0-9]{2}){4}$`', $tel)){
-            $message="Format Téléphone non valide";
         }
-        //Code Postal
-       // if(!)
-        
 
+        //Télépone
+        if (!(preg_match('`^0[1-9]([-. ]?[0-9]{2}){4}$`', $tel))) {
+            $message[] = 'Erreur Format téléphone';
+            $validation = false;
+        }
+        
+        //Code Postal
+        if(!(preg_match('`^[0-9]{5}$`', $cp))){
+            $message[] = 'Erreur Format code postal';
+            $validation = false;
+        }
+      
         //erreur
         if (!$validation) {
-             $this::creerEntreprise($message);
+            $this::creerEntreprise($message);
         }
         //insertion
         else {
@@ -87,14 +91,13 @@ class C_Entreprise extends C_ControleurGenerique {
             $daoEntreprise = new M_DaoEntreprise();
             $daoEntreprise->connecter();
             $pdo = $daoEntreprise->getPdo();
-            
+
             $id = $daoEntreprise->insert($entreprise);
-            if($id){
+            if ($id) {
                 header('Location: ?controleur=Entreprise&action=afficherEntreprise&idEntreprise=' . $id);
-            }else{
+            } else {
                 $this::creerEntreprise("Erreur d'insertion dans la base de données");
             }
-            
         }
     }
 
