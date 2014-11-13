@@ -24,7 +24,7 @@ class C_Entreprise extends C_ControleurGenerique {
 
         $daoEntreprise = new M_DaoEntreprise();
         $daoEntreprise->connecter();
-        $entreprise = $daoEntreprise->getOneById($_GET["id"]);
+        $entreprise = $daoEntreprise->getOneById($_GET["idEntreprise"]);
         
         $this->vue->ecrireDonnee('entreprise', $entreprise);      
        
@@ -81,7 +81,9 @@ class C_Entreprise extends C_ControleurGenerique {
             $daoEntreprise->connecter();
             $pdo = $daoEntreprise->getPdo();
 
-            $daoEntreprise->insert($entreprise);
+            var_dump($daoEntreprise->insert($entreprise));
+            
+            header('Location: ?controleur=Entreprise&action=afficherEntreprise&idEntreprise=' . $daoEntreprise->getId());
         }
     }
 
