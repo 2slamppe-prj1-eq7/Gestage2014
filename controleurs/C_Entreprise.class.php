@@ -20,7 +20,7 @@ class C_Entreprise extends C_ControleurGenerique {
 
         // les données
         $this->vue->ecrireDonnee('titreVue', "GestStage : Afficher une entreprise");
-        $this->vue->ecrireDonnee('centre', "../vues/includes/entreprise/centreAfficherEntreprise.php");
+        $this->vue->ecrireDonnee('centre', "../vues/includes/entreprise/centreAfficherUneEntreprise.php");
 
         $daoEntreprise = new M_DaoEntreprise();
         $daoEntreprise->connecter();
