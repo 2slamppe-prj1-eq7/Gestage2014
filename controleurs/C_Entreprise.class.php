@@ -54,20 +54,27 @@ class C_Entreprise extends C_ControleurGenerique {
         $activite = $_POST['activite'];
 
 
-        //Validation data       
+        //Validation data obligatoire      
         $message = Array();
         $validation = true;
         $champsNonObligatoires = array('fax', 'activite');
-        foreach ($_POST as $champ => $valeur) {
-            foreach ($champsNonObligatoires as $champNonObligatoire => $valeurChampNonObligatoire) {
-                if ($champsNonObligatoires != $champ) {
+           
+                foreach ($_POST as $champ => $valeur) {
+                if (!in_array($champ, $champsNonObligatoires)) {
                     if (empty($valeur)) {
                         $message[$champ] = "Champ non rempli : " . $champ;
                         $validation = false;
                     }
                 }
             }
+        
+        //Télépone
+        if(preg_match('`^0[1-9]([-. ]?[0-9]{2}){4}$`', $tel)){
+            $message="Format Téléphone non valide";
         }
+        //Code Postal
+       // if(!)
+        
 
         //erreur
         if (!$validation) {
