@@ -24,7 +24,7 @@ class C_Entreprise extends C_ControleurGenerique {
         
         $daoEntreprise = new M_DaoEntreprise();
         $daoEntreprise->connecter();
-        $entreprise = $daoEntreprise->getOneById(1);
+        $entreprise = $daoEntreprise->getOneById($_GET["id"]);
         
         $this->vue->ecrireDonnee('entreprise', $entreprise);
          $this->vue->afficher();
