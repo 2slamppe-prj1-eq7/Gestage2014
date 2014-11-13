@@ -1,3 +1,13 @@
+<?php
+    // message de validation de création ou non 
+    if (!is_null($this->lireDonnee('message'))) {
+        foreach ($this->lireDonnee('message') as $message){
+            echo "<strong style=\"color:red;\">" .  $message. "</strong></br>";
+        }
+        
+    }
+    ?>
+
 <form method="post" action=".?controleur=Entreprise&action=validationCreerEntreprise" name="CreateOrganisation">
     <h1>Creation d'une Entreprise</h1>
     <!-- Choix du type de compte pour afficher les différentes informations pour créer un compte spécifique -->
