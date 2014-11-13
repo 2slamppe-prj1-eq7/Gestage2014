@@ -80,10 +80,14 @@ class C_Entreprise extends C_ControleurGenerique {
             $daoEntreprise = new M_DaoEntreprise();
             $daoEntreprise->connecter();
             $pdo = $daoEntreprise->getPdo();
-
-            var_dump($daoEntreprise->insert($entreprise));
             
-            header('Location: ?controleur=Entreprise&action=afficherEntreprise&idEntreprise=' . $daoEntreprise->getId());
+            $id = $daoEntreprise->insert($entreprise);
+            if($id){
+                header('Location: ?controleur=Entreprise&action=afficherEntreprise&idEntreprise=' . $id);
+            }else{
+                $this::creerEntreprise("Erreur d'insertion dans la base de données");
+            }
+            
         }
     }
 

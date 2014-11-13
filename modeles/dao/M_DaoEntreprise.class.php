@@ -32,7 +32,7 @@ class M_DaoEntreprise extends M_DaoGenerique {
     }
 
     function insert($objetEntreprise) {
-        $retour = FALSE;
+        $retour = 0;
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "INSERT INTO $this->nomTable ";
@@ -44,7 +44,9 @@ class M_DaoEntreprise extends M_DaoGenerique {
             // préparer la  liste des paramètres, avec l'identifiant en dernier
             $parametres = $this->objetVersEnregistrement($objetEntreprise);
             // exécuter la requête avec les valeurs des paramètres dans un tableau
-            $retour = $queryPrepare->execute($parametres);
+            if($queryPrepare->execute($parametres)){
+                $retour = $this->pdo->lastInsertId();
+            }
 //            debug_query($sql, $parametres);
         } catch (PDOException $e) {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
