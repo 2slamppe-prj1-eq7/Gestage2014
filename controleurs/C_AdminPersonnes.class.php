@@ -110,6 +110,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         $daoPers->deconnecter();
         $this->vue->ecrireDonnee('utilisateur', $personne);
         $this->vue->ecrireDonnee('centre', "../vues/includes/adminPersonnes/centreAfficherInformationsUtilisateur.inc.php");
+        $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         $this->vue->afficher();
     }
 

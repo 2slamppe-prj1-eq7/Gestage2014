@@ -27,7 +27,7 @@ class C_Entreprise extends C_ControleurGenerique {
         $entreprise = $daoEntreprise->getOneById($_GET["idEntreprise"]);
 
         $this->vue->ecrireDonnee('entreprise', $entreprise);
-
+        $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         $this->vue->afficher();
     }
 
@@ -39,6 +39,7 @@ class C_Entreprise extends C_ControleurGenerique {
         if ($message) {
             $this->vue->ecrireDonnee('message', $message);
         }
+        $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         $this->vue->afficher();
     }
 
