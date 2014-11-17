@@ -55,6 +55,7 @@ class M_DaoEntreprise extends M_DaoGenerique {
     }
 
     function update($idMetier, $objetMetier) {
+       
         $retour = FALSE;
         try {
             // Requête textuelle paramétrée (paramètres nommés)
@@ -66,12 +67,18 @@ class M_DaoEntreprise extends M_DaoGenerique {
             $sql .= "CP_ORGANISATION = :cp , ";
             $sql .= "TEL_ORGANISATION = :tel , ";
             $sql .= "FAX_ORGANISATION = :fax , ";
-            $sql .= "FROMJURIDIQUE = :fj , ";
+            $sql .= "FORMEJURIDIQUE = :fj , ";
             $sql .= "ACTIVITE = :activite ";
             $sql .= "WHERE IDORGANISATION = :id";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
+           //var_dump($queryPrepare);
+            
+            // préparer la  liste des paramètres, avec l'identifiant en dernier
+            $parametres = $this->objetVersEnregistrement($objetMetier);
+           // var_dump($parametres);
+           // die();
             // préparer la  liste des paramètres la valeur de l'identifiant
             $retour = $queryPrepare->execute($parametres);
 //            debug_query($sql, $parametres);

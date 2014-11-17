@@ -11,7 +11,7 @@
             echo "<h2>Utilisateur : <i>" . $this->lireDonnee('loginAuthentification') . "</i></h2>";
             //menu de gauche présent pour tous les utilisateurs
             echo "<li><a href=\".?controleur=utilisateur&action=coordonnees\">-Mes informations</a></li>";
-            echo "<li><a href=\".?controleur=entreprise&action=afficherEntreprise\">-Afficher les entreprises</a></li>";
+            echo "<li><a href=\".?controleur=entreprise&action=afficherEntreprises\">-Afficher les entreprises</a></li>";
         } else {
             echo "<li><a href=\".?controleur=connexion&action=seConnecter\">Se connecter</a></li>";
         }

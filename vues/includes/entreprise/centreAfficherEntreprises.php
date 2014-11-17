@@ -31,7 +31,7 @@
                 </td>
                 <td>
                     <a href="?controleur=Entreprise&action=afficherEntreprise&idEntreprise=<?php echo $entreprise->getId(); ?>">Afficher</a>
-                    <a href="">Editer</a>
+                    <a href="?controleur=Entreprise&action=majEntreprise&idEntreprise=<?php echo $entreprise->getId(); ?>">Editer</a>
                     <a href="?controleur=entreprise&action=supprimerEntreprise&idEntreprise=<?php echo $entreprise->getId(); ?>">Supprimer</a>
                 </td>
             </tr>
