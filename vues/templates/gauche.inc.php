@@ -27,6 +27,7 @@
             //ajout menu de gauche pour les utilisateurs autres que secrétaire
             echo "<hr>";
             echo "<li><a href=\".?controleur=entreprise&action=creerEntreprise\">-Ajouter une entreprise</a></li>";
+            echo "<li><a href=\".?controleur=entreprise&action=afficherEntreprises\">-Liste des entreprises</a></li>";
             echo "<li><a href=\".?controleur=utilisateur&action=MajEntreprise\">-M.A.J entreprise</a></li>";
             echo "<hr>";
             echo "<li><a href=\".?controleur=utilisateur&action=ajoutStage\">-Ajouter un stage</a></li>";

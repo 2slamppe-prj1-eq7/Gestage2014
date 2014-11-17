@@ -12,6 +12,26 @@
  * @author btssio
  */
 class C_Entreprise extends C_ControleurGenerique {
+    
+    
+    function afficherEntreprises(){
+        
+        $this->vue = new V_Vue("../vues/templates/template.inc.php");
+
+
+        // les données
+        $this->vue->ecrireDonnee('titreVue', "GestStage : Afficher une entreprise");
+        $this->vue->ecrireDonnee('centre', "../vues/includes/entreprise/centreAfficherEntreprises.php");
+
+        $daoEntreprise = new M_DaoEntreprise();
+        $daoEntreprise->connecter();
+        $entreprises = $daoEntreprise->getAll();
+        $this->vue->ecrireDonnee('entreprises', $entreprises);
+        $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
+        $this->vue->afficher();
+        
+        
+    }
 
     function afficherEntreprise() {
 
@@ -100,6 +120,20 @@ class C_Entreprise extends C_ControleurGenerique {
                 $this::creerEntreprise("Erreur d'insertion dans la base de données");
             }
         }
+    }
+    
+    
+    function supprimerEntreprise($idEntreprise){
+        $idEntreprise=$_GET['idEntreprise'];
+        $daoEntreprise = new M_DaoEntreprise();
+        $daoEntreprise->connecter();
+        $validation = $daoEntreprise->delete($idEntreprise);
+        header('Location: ?controleur=Entreprise&action=afficherEntreprises');
+        
+       
+        
+        
+        
     }
 
 }
