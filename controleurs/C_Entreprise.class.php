@@ -14,7 +14,7 @@
 class C_Entreprise extends C_ControleurGenerique {
     
     
-    function afficherEntreprises(){
+    function afficherEntreprises($message=false){
         
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
 
@@ -27,6 +27,11 @@ class C_Entreprise extends C_ControleurGenerique {
         $daoEntreprise->connecter();
         $entreprises = $daoEntreprise->getAll();
         $this->vue->ecrireDonnee('entreprises', $entreprises);
+        
+        if(!empty($_GET["message"])){
+             $this->vue->ecrireDonnee('message',$_GET["message"]);
+        }
+       
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         $this->vue->afficher();
         
@@ -207,12 +212,15 @@ class C_Entreprise extends C_ControleurGenerique {
         $daoEntreprise = new M_DaoEntreprise();
         $daoEntreprise->connecter();
         $validation = $daoEntreprise->delete($idEntreprise);
-        header('Location: ?controleur=Entreprise&action=afficherEntreprises');
         
-       
-        
-        
-        
+        if(!$validation){
+            $message ="Problème de supression - Contraintes:"
+                    . "Veuillez supprimer tous les stages liés à cet entreprise";
+           
+             header('Location: ?controleur=Entreprise&action=afficherEntreprises&message=' . $message);
+        }else{
+            header('Location: ?controleur=Entreprise&action=afficherEntreprises');
+        }
     }
 
 }

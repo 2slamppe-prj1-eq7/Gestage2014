@@ -1,4 +1,14 @@
-<table  class="table table-striped">
+<?php
+    // message de validation de création ou non 
+    if (!is_null($this->lireDonnee('message'))) {
+       
+            echo "<strong style=\"color:red;\">" .  $this->lireDonnee('message'). "</strong></br>";
+        
+        
+    }
+    ?>
+
+<table>
     <thead>
         <tr>
             <th>Id</th>

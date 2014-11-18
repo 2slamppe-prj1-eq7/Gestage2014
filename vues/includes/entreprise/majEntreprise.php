@@ -7,7 +7,7 @@ $uneEntreprise = $this->lireDonnee('entreprise');
     <fieldset>
         <legend>MAJ d'une Entreprise</legend>
         <label for="nom">Nom entreprise:</label>
-        <input type="text"  name="nom" id="nom" value="<?php if(!is_null($uneEntreprise->getId())){echo $uneEntreprise->getId();}; ?>"></input>
+        <input type="text"  name="nom" id="nom" value="<?php if(!is_null($uneEntreprise->getNom())){echo $uneEntreprise->getNom();}; ?>"></input>
         <label for="ville">Ville:</label>
         <input type="text"  name="ville" id="ville" value="<?php if(!is_null($uneEntreprise->getVille())){echo $uneEntreprise->getVille();}; ?>"></input>
         <label for="adresse">Adresse:</label>
