@@ -6,102 +6,90 @@
 <h2 style="text-align: center ;"> Ajout d'un stage</h2>
 
 <?php
-if ($this->lireDonnee('message') != ' ') {
-    echo '<p class="mess-error">' . $this->lireDonnee('message') . '</p>';
-}
-?>
+    // message de validation de création ou non 
+    if (!is_null($this->lireDonnee('message'))) {
+        foreach ($this->lireDonnee('message') as $message){
+            echo "<strong style=\"color:red;\">" .  $message. "</strong></br>";
+        }
+        
+    }
+    ?>
+
 <h3>Etudiant</h3>
 <hr>
 <br/>
 <form method="post" action=".?controleur=stage&action=validationAjoutStage" name="CreateInterShipo" id="ajoutStage">
     <p>
-        <label>Classe</label>
-        <select name="classe" id="classe" class="required">
-            <option value="-1"></option>
-
+                
+        
+        <label>Annee Scolaire :</label>
+        
+        <select  name="anneeScol" id="anneeScol" class="required">
+            
+            
             <?php
-            // remplissage du "SELECT" qui contien les roles
+            
 
-            foreach ($this->lireDonnee('listeClasse') as $classe) {
-
-
-                echo'<option value="' . $classe->getNumClass() . '">' . $classe->getNumClass() . '</option>';
-            }
-            ?>  
-        </select>
-        <label> Annee scolaire</label>
-        <input type="text" name="anneeScol" id="anneeScol" class="required">
-
-        </select>
-    </p>
-    <p>
-        <label>Nom de l'étudiant</label>
-        <select  name="nomEtudiant" id="nomEtud" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-            <option value="-1"></option>
-
-<?php
-for ($i = 0; $i < sizeof($this->lireDonnee('listeNoms')); $i++) {
-
-    foreach ($this->lireDonnee('listeNoms') as $nom) {
-        echo'<option value="' . $nom[1] . '">' . $nom[1] . '</option>';
-    }
-}
-?>  
-        </select>
-
-    </p>
-    <p>
-        <label>Prenom de l'étudiant</label>
-        <select  name="prenomEtudiant" id="prenomEtud" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-            <option value="-1"></option>
-            <?php
-            for ($i = 0; $i < sizeof($this->lireDonnee('listeNoms')); $i++) {
-
-                foreach ($this->lireDonnee('listeNoms') as $nom) {
-                    echo'<option value="' . $nom[2] . '">' . $nom[2] . '</option>';
+                foreach ($this->lireDonnee('listeAnnee') as $annee) {
+                    echo'<option value="' . $annee->getAnneeScol() . '">' . $annee->getAnneeScol() . '</option>';
                 }
-            }
-            ?>  
+            ?>
+           
         </select>
-    </p>
     
-    <p><label>Nom du professeur RESP</label></p>
-   <p><select  name="nomProf" id="nomProf" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-        <option value="-1"></option>
+        <label>Etudiant</label>
+        
+        <select  name="Etudiant" id="Etudiant" class="required">
+            
+            
             <?php
-            for ($i = 0; $i < sizeof($this->lireDonnee('listeProf')); $i++) {
+            
 
-                foreach ($this->lireDonnee('listeProf') as $nom) {
-                    echo'<option value="' . $nom[1] . '">' . $nom[1] . '</option>';
+                foreach ($this->lireDonnee('etudiants') as $etudiant) {
+                    echo'<option value="' . $etudiant->getId() . '">' . $etudiant->getNom() .' '. $etudiant->getPrenom(). '</option>';
                 }
-            }
-            ?>  
-       </select></p>
+            ?>
+           
+        </select>
+   
+        
+    <label>Professeur</label>
+        
+        <select  name="Professeur" id="Professeur" class="required">
+            
+            
+            <?php
+            
+
+                foreach ($this->lireDonnee('professeurs') as $professeur) {
+                    echo'<option value="' . $professeur->getId() . '">' . $professeur->getNom() .' '. $professeur->getPrenom(). '</option>';
+                }
+            ?>
+           
+        </select>
+
+   
+     <label>Maitre de stage</label>
+        
+        <select  name="MaitreStage" id="MaitreStage" class="required">
+            
+            
+            <?php
+            
+
+                foreach ($this->lireDonnee('maitresStage') as $maitreStage) {
+                    echo'<option value="' . $maitreStage->getId() . '">' . $maitreStage->getNom() .' '. $maitreStage->getPrenom(). '</option>';
+                }
+            ?>
+           
+        </select>
     
-       <p><label>Prenom du professeur RESP</label></p>
-    <p><select  name="prenomProf" id="prenomProf" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-        <option value="-1"></option>
-<?php
-for ($i = 0; $i < sizeof($this->lireDonnee('listeProf')); $i++) {
-
-    foreach ($this->lireDonnee('listeProf') as $nom) {
-        echo'<option value="' . $nom[2] . '">' . $nom[2] . '</option>';
-    }
-}
-?>  
-        </select></p>
-
-    <label> Nom du maître de stage </label>
-    <input type="text" name="nomMaster" id="nomMaster" required />
-
-    <label> Prénom du maître de stage </label>
-    <input type="text" name="prenomMaster" id="prenomMaster" required />
 
     <label> Nom de l'entreprise</label>
 
 
     <select  name="nomOrgas" id="nomOrgas" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-        <option value="-1" id=""></option>
+        
         <?php
         foreach ($this->lireDonnee('listeOrgas') as $nom) {
             echo'<option value="' . $nom->getId() . '">' . $nom->getNom() . '</option>';

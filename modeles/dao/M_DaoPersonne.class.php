@@ -191,11 +191,49 @@ class M_DaoPersonne extends M_DaoGenerique {
     }
     
     
+    /*** 
+     * Récupere les identifiants des personnes avec un role précis
+     * @param $rows
+     * @retrun $role
+     */
+    
+     function getAllByRole($role)
+    {
+        
+         $retour = null;
+        // Requête textuelle
+        $sql = "SELECT * FROM $this->nomTable P ";
+        $sql .= "LEFT OUTER JOIN SPECIALITE S ON S.IDSPECIALITE = P.IDSPECIALITE ";
+        $sql .= "LEFT OUTER JOIN ROLE R ON R.IDROLE = P.IDROLE "
+                . "WHERE P.IDROLE=:role";
+        try {
+            // préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            // exécuter la requête PDO
+            if ($queryPrepare->execute(array(':role' => $role))) {
+                // si la requête réussit :
+                // initialiser le tableau d'objets à retourner
+                $retour = array();
+                // pour chaque enregistrement retourné par la requête
+                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
+                    // construir un objet métier correspondant
+                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
+                    // ajouter l'objet au tableau
+                    $retour[] = $unObjetMetier;
+                }
+            }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+    
+    
     /**
      * getEleves
      */
     
-    function getEleves(){
+    /*function getEleves(){
         
         $retour = null;
         // Requête textuelle
@@ -223,7 +261,7 @@ class M_DaoPersonne extends M_DaoGenerique {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
         return $retour;
-    }
+    }*/
 
     /**
      * verifierLogin
@@ -333,47 +371,7 @@ class M_DaoPersonne extends M_DaoGenerique {
         return $ok;
     }
 
-    /*** 
-     * Récupere les identifiants des personnes avec un role précis
-     * @param $rows
-     * @retrun $role
-     */
     
-     function getAllByRole($rows,$role)
-    {
-        
-        $retour = null ;
-        try
-        {
-            $sql = "SELECT IDPERSONNE, " ;
-            foreach($rows as $v)
-            {
-                
-                $sql .= $v." , ";
-               
-            }
-            $sql = substr($sql, 0, strlen($sql)-2 ) ;
-           
-           
-            $sql .= "FROM $this->nomTable P " ;
- 
-            $sql .= "WHERE IDROLE = ".$role;   
-   
-            
- 
-            $queryPrepare = $this->pdo->prepare($sql);
-              if ($queryPrepare->execute()) {
-                    $retour =$queryPrepare->fetchAll() ;
-                    
-                  
-           
-              }
-        } catch (Exception $ex) {
-        }
-      
-        
-        return $retour ;
-    }
 }
 
 

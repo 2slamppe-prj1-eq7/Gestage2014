@@ -2,16 +2,23 @@
 
 class C_Stage extends C_ControleurGenerique {
 
-    function ajoutStage($message = " ") {
+    function ajoutStage($message = false) {
         $daoPers = New M_DaoPersonne();
         $daoPers->connecter();
         $pdo = $daoPers->getPdo();
         $rows = array('nom', 'prenom');
-        $etudiant = $daoPers->getAllByRole($rows, 4);
-        $prof = $daoPers->getAllByRole($rows, 3);
-        $classe = New M_DaoClasse;
 
+        $etudiants = $daoPers->getAllByRole(4);
+        $professeurs = $daoPers->getAllByRole(3);
+        $maitresStage = $daoPers->getAllByRole(5);
+
+        $classe = New M_DaoClasse;
         $classe->setPdo($pdo);
+
+        $anneeScol = New M_DaoAnnescolaire();
+        $anneeScol->setPdo($pdo);
+        $listeAnnee = $anneeScol->getAll();
+
 
         $orga = New M_DaoEntreprise();
         $orga->setPdo($pdo);
@@ -28,10 +35,14 @@ class C_Stage extends C_ControleurGenerique {
         $this->vue = new V_Vue($fichier);
         $this->vue = new V_Vue($fichier);
         $this->vue->ecrireDonnee('listeClasse', $classe->getAll());
-        $this->vue->ecrireDonnee('listeNoms', $etudiant);
-        $this->vue->ecrireDonnee('listeProf', $prof);
+        $this->vue->ecrireDonnee('listeAnnee', $listeAnnee);
+        $this->vue->ecrireDonnee('etudiants', $etudiants);
+        $this->vue->ecrireDonnee('professeurs', $professeurs);
+        $this->vue->ecrireDonnee('maitresStage', $maitresStage);
         $this->vue->ecrireDonnee('listeOrgas', $orgas);
-        $this->vue->ecrireDonnee('message', $message);
+        if ($message) {
+            $this->vue->ecrireDonnee('message', $message);
+        }
         $this->vue->ecrireDonnee('gauche', '../vues/templates/gauche.inc.php');
         $this->vue->ecrireDonnee('titreVue', $titre);
         $this->vue->ecrireDonnee('centre', "../vues/includes/stage/centreAjoutStage.php");
@@ -43,101 +54,84 @@ class C_Stage extends C_ControleurGenerique {
 
     function validationAjoutStage() {
 
-        $daoPers = New M_DaoPersonne();
-        $daoPers->connecter();
-        $pdo = $daoPers->getPdo();
+        //Validation data obligatoire      
+        $message = Array();
+        $validation = true;
+        $champsNonObligatoires = array();
 
-        //Verif Maître de stage
-        $nom = $_POST['nomMaster'];
-        $prenom = $_POST['prenomMaster'];
+        foreach ($_POST as $champ => $valeur) {
+            if (!in_array($champ, $champsNonObligatoires)) {
+                if (empty($valeur)) {
+                    $message[] = "Champ non rempli : " . $champ;
+                    $validation = false;
+                }
+            }
+        }
+        if ($validation) {
 
-        $verifMaster = $daoPers->getOnByName($nom, $prenom);
-        //Verification que le maître de stage existe
-        if (!empty($verifMaster)) {
-            //RECUPERATION DE L'ID DU MAITRE DE STAGE
-            $idMaster = $daoPers->getIdPers($nom, $prenom);
-            $idMaster = intval($idMaster['IDPERSONNE']);
-
-
-            //RECUPERATION DE L'ID DE L'ETUDIANT
-            $nomEtudiant = $_POST['nomEtudiant'];
-            $prenomEtudiant = $_POST['prenomEtudiant'];
-            $idEtudiant = $daoPers->getIdPers($nomEtudiant, $prenomEtudiant);
-
-            if ($idEtudiant) {
-                $idEtudiant = intval($idEtudiant['IDPERSONNE']);
-                //RECUPERATION DE L'ID DU PROFESSEUR
-                $nomProf = $_POST['nomProf'];
-                $prenomProf = $_POST['prenomProf'];
-                $idProf = $daoPers->getIdPers($nomProf, $prenomProf);
-                if ($idProf) {
-                    $idProf = intval($idProf['IDPERSONNE']);
-                    //Instanciation du stage
-                    $stage = new M_DaoStage();
-                    //INITIALISATION DES VARIABLES
-                    $classe = $_POST['classe'];
-                    $anneScol = $_POST['anneeScol'];
-                    $idOrga = intval($_POST['nomOrgas']);
-                    $dateDebut = $_POST['dateDebut'];
-                    $dateFin = $_POST['dateFin'];
-                    $dateVisite = $_POST['dateVisite'];
-                    $ville = $_POST['ville'];
-                    //TRANSFORMATION DES DATES AU FORMAT DATE DE MYSQL
-                    $dateDebut = splitDate($dateDebut);
-                    $dateFin = splitDate($dateFin);
-                    $dateVisite = splitDate($dateVisite);
-
-                    if ($idOrga != -1) {
-                        //COMPARAISON DES DATES
-                        $ok = 1;
-
-                        if ($dateFin < $dateDebut) {
-                            $message = "La date de fin de stage doit être superieur à la date du début";
-                            $ok = 0;
-                        }
+            $anneScol = $_POST['anneeScol'];
+            $idEtudiant = $_POST['Etudiant'];
+            $idProf = $_POST['Professeur'];
+            $idOrga = $_POST['nomOrgas'];
+            $idMaster = $_POST['MaitreStage'];
 
 
-                        if (($dateVisite < $dateDebut) && ($dateVisite > $dateFin)) {
-                            $message = "La date de visite doit se trouver entre la date du début et la date de fin";
-                            $ok = 0;
-                        }
 
-                        //Si les dates correspondent on envoie
 
-                        if ($ok == 1) {
+            $dateDebut = $_POST['dateDebut'];
+            $dateFin = $_POST['dateFin'];
+            $dateVisite = $_POST['dateVisite'];
 
-                            //Initialisation du pdo
-                            $stage->connecter();
-                            $stage->getPdo();
+            $dateDebut = splitDate($dateDebut);
+            $dateFin = splitDate($dateFin);
+            $dateVisite = splitDate($dateVisite);
 
-                            //Creation de l'objet stage
-                            $Unstage = new M_Stage(null, $anneScol, $idEtudiant, $idProf, $idOrga, $idMaster, $dateDebut, $dateFin, $dateVisite, $ville);
-                            //Insertion dans la base de donnée
-                            if ($stage->insert($Unstage) == 'true') {
-                                $message = "Le stage à bien été enregisté";
-                            } else {
-                                $message = "Une erreur inconnue s'est produite";
-                            }
-                        } else {
-                            $message = $message;
-                        }
-                    } else {
-                        $message = "Le nom de l'entreprise doit être remplis";
-                    }
+
+            $ville = $_POST['ville'];
+
+            $ok = 1;
+            if ($dateFin < $dateDebut) {
+                $message[] = "La date de fin de stage doit être superieur à la date du début";
+                $ok = 0;
+            }
+
+
+            if (($dateVisite < $dateDebut) && ($dateVisite > $dateFin)) {
+                $message[] = "La date de visite doit se trouver entre la date du début et la date de fin";
+                $ok = 0;
+            }
+
+            //Si les dates correspondent on envoie
+
+            if ($ok == 1) {
+
+                //Initialisation du pdo
+                $stage = new M_DaoStage();
+                $stage->connecter();
+                $stage->getPdo();
+
+                //Creation de l'objet stage
+                $Unstage = new M_Stage(null, $anneScol, $idEtudiant, $idProf, $idOrga, $idMaster, $dateDebut, $dateFin, $dateVisite, $ville);
+                //Insertion dans la base de donnée
+                if ($stage->insert($Unstage) == 'true') {
+                    $message[] = "Le stage à bien été enregisté";
+                    $this->ajoutStage($message);
+                    
                 } else {
-                    $message = "Le nom et le prenom du professeur ne correspondent pas";
+                    $message[] = "Une erreur inconnue s'est produite";
+                    $this->ajoutStage($message);
+
                 }
             } else {
-                $message = "Le nom et prenom de l'étudiant ne correspondent pas";
+                $this->ajoutStage($message);
             }
-        } else {
-            $message = "Le maître de stage n'est pas présent dans nos données, Veuillez l'ajouter.";
+        }else {
+               $this->ajoutStage($message);
+            }
+
+
+            
         }
-
-        $this->ajoutStage($message);
     }
-    
- 
-        
 
-}
+
