@@ -146,6 +146,41 @@ class M_DaoPersonne extends M_DaoGenerique {
         }
         return $retour;
     }
+    
+    
+    /**
+     * getEleves
+     */
+    
+    function getEleves(){
+        
+        $retour = null;
+        // Requête textuelle
+        $sql = "SELECT * FROM $this->nomTable P ";
+        $sql .= "LEFT OUTER JOIN SPECIALITE S ON S.IDSPECIALITE = P.IDSPECIALITE ";
+        $sql .= "LEFT OUTER JOIN ROLE R ON R.IDROLE = P.IDROLE "
+                . "WHERE P.IDROLE=4";
+        try {
+            // préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            // exécuter la requête PDO
+            if ($queryPrepare->execute()) {
+                // si la requête réussit :
+                // initialiser le tableau d'objets à retourner
+                $retour = array();
+                // pour chaque enregistrement retourné par la requête
+                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
+                    // construir un objet métier correspondant
+                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
+                    // ajouter l'objet au tableau
+                    $retour[] = $unObjetMetier;
+                }
+            }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
 
     /**
      * verifierLogin
