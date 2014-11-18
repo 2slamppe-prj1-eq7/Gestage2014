@@ -78,7 +78,20 @@ function edition(){
     options =="Width=700,Height=700";
     windows.open("../includes/edition.php","edition",options);
     
+    
 }
+
+/**
+           * Fonction qui permet de modifier une date au format Date de MySQL
+           * @params la date à modifier
+           * @return type Date pour la base de donnée
+           */
+         function splitDate($date)
+         {
+                 list($month, $day, $year) = split('[/.-]', $date);
+                 $date = $year.'-'.$month.'-'.$day ;
+                 return $date ;
+         }
 
 
 

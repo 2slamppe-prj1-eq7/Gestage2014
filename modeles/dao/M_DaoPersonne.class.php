@@ -97,7 +97,7 @@ class M_DaoPersonne extends M_DaoGenerique {
         return $retour;
     }
 
-    // eager-fetching
+    
     function getOneById($id) {
         $retour = null;
         try {
@@ -122,7 +122,7 @@ class M_DaoPersonne extends M_DaoGenerique {
         return $retour;
     }
 
-    // eager-fetching
+    
     function getOneByLogin($valeurLogin) {
         $retour = null;
         try {
@@ -141,6 +141,49 @@ class M_DaoPersonne extends M_DaoGenerique {
                 // construire l'objet métier correspondant
                 $retour = $this->enregistrementVersObjet($enregistrement);
             }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+    
+    
+    function getOnByName($nom,$prenom) {
+        $retour = null;
+     
+        try {
+            // Requête textuelle
+            $sql = "SELECT nom,prenom FROM $this->nomTable P ";
+            $sql .= "WHERE NOM =:nom AND P.prenom=:prenom";
+             $stmt = $this->pdo->prepare($sql);
+            // préparer la requête PDO
+       if ($stmt->execute(array(':nom' => $nom, ':prenom' => $prenom))) {
+        
+                $retour = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+     
+        return $retour;
+    }
+    
+    function getIdPers($nom, $prenom)
+    {
+         $retour = null;
+     
+        try {
+            // Requête textuelle
+            $sql = "SELECT IDPERSONNE FROM $this->nomTable P ";
+            $sql .= "WHERE NOM =:nom AND P.prenom=:prenom";
+             $stmt = $this->pdo->prepare($sql);
+            // préparer la requête PDO
+       if ($stmt->execute(array(':nom' => $nom, ':prenom' => $prenom))) {
+        
+                $retour = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            
         } catch (PDOException $e) {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
@@ -290,6 +333,47 @@ class M_DaoPersonne extends M_DaoGenerique {
         return $ok;
     }
 
+    /*** 
+     * Récupere les identifiants des personnes avec un role précis
+     * @param $rows
+     * @retrun $role
+     */
+    
+     function getAllByRole($rows,$role)
+    {
+        
+        $retour = null ;
+        try
+        {
+            $sql = "SELECT IDPERSONNE, " ;
+            foreach($rows as $v)
+            {
+                
+                $sql .= $v." , ";
+               
+            }
+            $sql = substr($sql, 0, strlen($sql)-2 ) ;
+           
+           
+            $sql .= "FROM $this->nomTable P " ;
+ 
+            $sql .= "WHERE IDROLE = ".$role;   
+   
+            
+ 
+            $queryPrepare = $this->pdo->prepare($sql);
+              if ($queryPrepare->execute()) {
+                    $retour =$queryPrepare->fetchAll() ;
+                    
+                  
+           
+              }
+        } catch (Exception $ex) {
+        }
+      
+        
+        return $retour ;
+    }
 }
 
 
