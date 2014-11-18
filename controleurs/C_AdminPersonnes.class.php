@@ -40,7 +40,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
 
         //Récupération données
         $specialite = $_POST["option"];
-        $role = $_POST["role"];
+        $role = $_POST["role"];        
         $civilite = $_POST["civilite"];
         $nom = $_POST["nom"];
         $prenom = $_POST["prenom"];
