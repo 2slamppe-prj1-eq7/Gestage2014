@@ -116,22 +116,43 @@ class C_Stage extends C_ControleurGenerique {
                 if ($stage->insert($Unstage) == 'true') {
                     $message[] = "Le stage à bien été enregisté";
                     $this->ajoutStage($message);
-                    
                 } else {
                     $message[] = "Une erreur inconnue s'est produite";
                     $this->ajoutStage($message);
-
                 }
             } else {
                 $this->ajoutStage($message);
             }
-        }else {
-               $this->ajoutStage($message);
-            }
-
-
-            
+        } else {
+            $this->ajoutStage($message);
         }
     }
 
+    function AfficherStages() {
 
+        $this->vue = new V_Vue("../vues/templates/template.inc.php");
+
+
+        // les données
+        $this->vue->ecrireDonnee('titreVue', "GestStage : Afficher les entreprises");
+        $this->vue->ecrireDonnee('centre', "../vues/includes/stage/centreAfficherStages.php");
+
+        $stage = new M_DaoStage();
+        $stage->connecter();
+        $stage->getPdo();
+
+        $lesStages = $stage->getAll();
+        
+        
+        
+        $this->vue->ecrireDonnee('lesStages', $lesStages);
+        
+        if(!empty($_GET["message"])){
+             $this->vue->ecrireDonnee('message',$_GET["message"]);
+        }
+       
+        $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
+        $this->vue->afficher();
+    }
+
+}
