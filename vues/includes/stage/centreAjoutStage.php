@@ -97,12 +97,12 @@
         ?>  
     </select>
     <label> Date de début (mm/jj/aaaa)</label>
-    <input type="date" name="dateDebut"class="date" id="dateDebut"  />
+    <input type="text" name="dateDebut"class="date" id="dateDebut"  />
     <label> date de fin (mm/jj/aaaa) </label>
-    <input type="date" name="dateFin" class="date" id="dateFin" required />
+    <input type="text" name="dateFin" class="date" id="dateFin" required />
 
     <label> Date visite de stage (mm/jj/aaaa) </label>
-    <input type="date" name="dateVisite" class="date" id="dateVisit" required />
+    <input type="text" name="dateVisite" class="date" id="dateVisit" required />
 
     <label> Ville </label>
     <input type="text" name="ville" id="Ville" required />
