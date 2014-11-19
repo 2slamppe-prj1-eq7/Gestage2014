@@ -51,8 +51,12 @@ class M_DaoPersonne extends M_DaoGenerique {
         
         if (!is_null($objetMetier->getSpecialite())) {
             $idSpecialite = $objetMetier->getSpecialite();
-       } else {
-           $idSpecialite = 0; // "Autre" (simple visiteur)
+            if($idSpecialite==""){
+                $idSpecialite = null;
+            }
+       } else{
+           var_dump("coucou");
+           $idSpecialite = null; // "Autre" (simple visiteur)
        }
         $retour = array(
             ':idRole' => $idRole,
@@ -310,6 +314,8 @@ class M_DaoPersonne extends M_DaoGenerique {
             $queryPrepare = $this->pdo->prepare($sql);
             // préparer la  liste des paramètres, avec l'identifiant en dernier
             $parametres = $this->objetVersEnregistrement($objetMetier);
+            
+            var_dump($parametres);
             // exécuter la requête avec les valeurs des paramètres dans un tableau
             $retour = $queryPrepare->execute($parametres);
 //            debug_query($sql, $parametres);
