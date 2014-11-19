@@ -25,7 +25,7 @@
         <label>Annee Scolaire :</label>
         
         <select  name="anneeScol" id="anneeScol" class="required">
-            
+             <option value=""></option>
             
             <?php
             
@@ -40,7 +40,7 @@
         <label>Etudiant</label>
         
         <select  name="Etudiant" id="Etudiant" class="required">
-            
+            <option value=""></option>
             
             <?php
             
@@ -56,7 +56,7 @@
     <label>Professeur</label>
         
         <select  name="Professeur" id="Professeur" class="required">
-            
+             <option value=""></option>
             
             <?php
             
@@ -72,7 +72,7 @@
      <label>Maitre de stage</label>
         
         <select  name="MaitreStage" id="MaitreStage" class="required">
-            
+             <option value=""></option>
             
             <?php
             
@@ -86,22 +86,22 @@
     
 
     <label> Nom de l'entreprise</label>
-
+    
 
     <select  name="nomOrgas" id="nomOrgas" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-        
+         <option value=""></option>
         <?php
         foreach ($this->lireDonnee('listeOrgas') as $nom) {
             echo'<option value="' . $nom->getId() . '">' . $nom->getNom() . '</option>';
         }
         ?>  
     </select>
-    <label> Date de début</label>
+    <label> Date de début (mm/jj/aaaa)</label>
     <input type="date" name="dateDebut"class="date" id="dateDebut"  />
-    <label> date de fin </label>
+    <label> date de fin (mm/jj/aaaa) </label>
     <input type="date" name="dateFin" class="date" id="dateFin" required />
 
-    <label> Date visite de stage </label>
+    <label> Date visite de stage (mm/jj/aaaa) </label>
     <input type="date" name="dateVisite" class="date" id="dateVisit" required />
 
     <label> Ville </label>
@@ -113,16 +113,3 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
-<script>
-                      $(function() {
-                      $(".date").datepicker();
-                      });  </script>
-<script>
-            if ($('select').val() == '-1'){
-    alert('Aucun champ ne doit être vide, recommencez ');
-            return false;
-            }
-</script>
-<script>
-    if (documentG)
-</script>

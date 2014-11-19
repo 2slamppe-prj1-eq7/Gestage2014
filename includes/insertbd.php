@@ -27,7 +27,7 @@ for ($i = 2000; $i < 2030; $i++) {
 
     $sql = "INSERT INTO `ANNEESCOL` (`ANNEESCOL`)VALUES ('$annee_scolaire');";
     echo $sql;
-    $pdo->query($sql);
+    //$pdo->query($sql);
     echo "<br>";
 }
 
@@ -61,7 +61,7 @@ for ($i = 0; $i <= 1; $i++) {
             $specialite[$i]['LIBELLELONGSPECIALITE'] . "');";
 
     echo $sql;
-    $pdo->query($sql);
+    //$pdo->query($sql);
     echo "<br>";
 }
 
@@ -83,7 +83,7 @@ $sql = "INSERT INTO `FILIERE` (`NUMFILIERE`, `LIBELLEFILIERE`) VALUES
 (6, 'Formation Complementaire d''Initiative Locale');";
 
 echo $sql;
-$pdo->query($sql);
+//$pdo->query($sql);
 echo "<br>";
 
 
@@ -127,7 +127,7 @@ for ($i = 0; $i < count($classe); $i++) {
             $classe[$i]['NOMCLASSE'] . "');";
 
     echo $sql;
-    $pdo->query($sql);
+    //$pdo->query($sql);
     echo "<br>";
 }
 
@@ -149,7 +149,7 @@ $sql = "INSERT INTO `ROLE` (`IDROLE`, `RANG`, `LIBELLE`) VALUES
 
 
 echo $sql;
-$pdo->query($sql);
+//$pdo->query($sql);
 echo "<br>";
 
 
@@ -216,7 +216,7 @@ for ($i = 0; $i < count($listePrenom); $i++) {
             '$LOGINUTILISATEUR',
             '$MDPUTILISATEUR');";
     echo $sql;
-    $pdo->query($sql);
+    //$pdo->query($sql);
     echo "<br>";
     $idpersonne = $pdo->lastInsertId();
 
@@ -233,7 +233,7 @@ for ($i = 0; $i < count($listePrenom); $i++) {
     VALUES 
     ('$ANNEESCOL',$IDPERSONNE,'$NUMCLASSE');";
     echo $sql2;
-    $pdo->query($sql2);
+    //$pdo->query($sql2);
     echo "<br>";
     echo "<br>";
 }
@@ -301,7 +301,7 @@ for ($i = 0; $i < count($listePrenom); $i++) {
             '$MDPUTILISATEUR');";
 
     echo $sql;
-    $pdo->query($sql);
+    //$pdo->query($sql);
     echo "<br>";
     $idpersonne = $pdo->lastInsertId();
 
@@ -318,7 +318,7 @@ for ($i = 0; $i < count($listePrenom); $i++) {
     VALUES 
     ('$ANNEESCOL',$IDPERSONNE,'$NUMCLASSE');";
     echo $sql2;
-    $pdo->query($sql2);
+    //$pdo->query($sql2);
     echo "<br>";
     echo "<br>";
 }
@@ -336,7 +336,7 @@ for ($i = 0; $i < count($listePrenom); $i++) {
 
     $IDPERSONNE = "NULL";
     $IDSPECIALITE = "NULL";
-    $IDROLE = 1; //Professeur
+    $IDROLE = 3; //Professeur
     if ($i % 2 == 0) {
         $CIVILITE = "Monsieur";
     } else {
@@ -387,10 +387,150 @@ for ($i = 0; $i < count($listePrenom); $i++) {
 
 
     echo $sql;
-    $pdo->query($sql);
+    //$pdo->query($sql);
     echo "<br>";
     echo "<br>";
 }
+
+
+echo "-- Administrateur";
+echo "<br>";
+echo "<br>";
+//Insertion Administrateur
+
+$listePrenom = array('Dupond');
+$listeNom = array('Jean');
+
+for ($i = 0; $i < count($listePrenom); $i++) {
+
+    $IDPERSONNE = "NULL";
+    $IDSPECIALITE = "NULL";
+    $IDROLE = 1; //Admin
+    if ($i % 2 == 0) {
+        $CIVILITE = "Monsieur";
+    } else {
+        $CIVILITE = "Madame";
+    }
+    $NOM = $listeNom[$i];
+    $PRENOM = $listePrenom[$i];
+    $NUM_TEL = '02' . rand(11111111, 99999999);
+    $ADRESSE_MAIL = substr(strtolower($listePrenom[$i]), 0, 1) . '.' . strtolower($listeNom[$i]) . "@la-joliverie.com";
+    $NUM_TEL_MOBILE = '06' . rand(11111111, 99999999);
+    $ETUDES = "Informatique";
+    $FORMATION = "BTSSIO";
+    $LOGINUTILISATEUR = substr(strtolower($listePrenom[$i]), 0, 1) . strtolower($listeNom[$i]);
+    $MDPUTILISATEUR = sha1($LOGINUTILISATEUR);
+
+
+
+    $sql = "INSERT INTO `PERSONNE` (
+            `IDPERSONNE`,
+            `IDSPECIALITE`,
+            `IDROLE`,
+            `CIVILITE`,
+            `NOM`,
+            `PRENOM`,
+            `NUM_TEL`,
+            `ADRESSE_MAIL`,
+            `NUM_TEL_MOBILE`,
+            `ETUDES`,
+            `FORMATION`,
+            `LOGINUTILISATEUR`,
+            `MDPUTILISATEUR`) 
+            VALUES(
+            $IDPERSONNE,
+            $IDSPECIALITE,
+            '$IDROLE',
+            '$CIVILITE',
+            '$NOM',
+            '$PRENOM',
+            '$NUM_TEL',
+            '$ADRESSE_MAIL',
+            '$NUM_TEL_MOBILE',
+            '$ETUDES',
+            '$FORMATION',
+            '$LOGINUTILISATEUR',
+            '$MDPUTILISATEUR');";
+
+
+
+
+    echo $sql;
+    //$pdo->query($sql);
+    echo "<br>";
+    echo "<br>";
+}
+
+
+
+echo "-- Maitre de Stage";
+echo "<br>";
+echo "<br>";
+//Insertion Maitre de Stage
+
+$listeNom = array('JOBS','LAO','LANGLE','HOUBON','DIXNEUF');
+$listePrenom = array('Steve','Jean','Thierry','Daniel','Guillaume');
+
+for ($i = 0; $i < count($listePrenom); $i++) {
+
+    $IDPERSONNE = "NULL";
+    $IDSPECIALITE = "NULL";
+    $IDROLE = 5; //Maitre de Stage
+    if ($i % 2 == 0) {
+        $CIVILITE = "Monsieur";
+    } else {
+        $CIVILITE = "Madame";
+    }
+    $NOM = $listeNom[$i];
+    $PRENOM = $listePrenom[$i];
+    $NUM_TEL = '02' . rand(11111111, 99999999);
+    $ADRESSE_MAIL = substr(strtolower($listePrenom[$i]), 0, 1) . '.' . strtolower($listeNom[$i]) . "@la-joliverie.com";
+    $NUM_TEL_MOBILE = '06' . rand(11111111, 99999999);
+    $ETUDES = "Informatique";
+    $FORMATION = "BTSSIO";
+    $LOGINUTILISATEUR = substr(strtolower($listePrenom[$i]), 0, 1) . strtolower($listeNom[$i]);
+    $MDPUTILISATEUR = sha1($LOGINUTILISATEUR);
+
+
+
+    $sql = "INSERT INTO `PERSONNE` (
+            `IDPERSONNE`,
+            `IDSPECIALITE`,
+            `IDROLE`,
+            `CIVILITE`,
+            `NOM`,
+            `PRENOM`,
+            `NUM_TEL`,
+            `ADRESSE_MAIL`,
+            `NUM_TEL_MOBILE`,
+            `ETUDES`,
+            `FORMATION`,
+            `LOGINUTILISATEUR`,
+            `MDPUTILISATEUR`) 
+            VALUES(
+            $IDPERSONNE,
+            $IDSPECIALITE,
+            '$IDROLE',
+            '$CIVILITE',
+            '$NOM',
+            '$PRENOM',
+            '$NUM_TEL',
+            '$ADRESSE_MAIL',
+            '$NUM_TEL_MOBILE',
+            '$ETUDES',
+            '$FORMATION',
+            '$LOGINUTILISATEUR',
+            '$MDPUTILISATEUR');";
+
+
+
+
+    echo $sql;
+    //$pdo->query($sql);
+    echo "<br>";
+    echo "<br>";
+}
+
 
 /**
  * Table Orgnisation
@@ -402,7 +542,7 @@ echo "<br>";
 //Insertion Organisation
 
 $sql = "ALTER TABLE `ORGANISATION` CHANGE `IDORGANISATION` `IDORGANISATION` INT( 11 ) NOT NULL AUTO_INCREMENT ";
-$pdo->query($sql);
+//$pdo->query($sql);
 
 $listeNom = array('ECOLE DES MINES DE NANTES', 'ALERTE INFORMATIQUE', 'APS SOLUTIONS INFORMATIQUES', 'CITRUS INGENIERIE', 'QUATERNAIRE', 'PC NEW LIFE', 'LYCEE NOTRE DAME', 'MAKINA CORPUS', 'ATHLONE EXTRUSIONS LTCL', 'AKOS', 'TOUANG K.M.', 'France TELECOM ORANGE', 'BULL SAS', 'AGENCE 404', 'MANITOU BF', 'REPRO CONSEIL', 'STRATOS', 'HG INFORMATIQUE', 'CAPGEMINI', 'IBM', 'HP', 'BOULANGER', 'FNAC');
 $listeAdresse = array('4 RUE ALFRED KASTLER', '186 BIS RUE DES COUPERIES', '8 RUE DU MARCHE COMMUN', 'LIEU DIT LENIPHEN', '9 RUE JULES VERNE', '1 TER AVENUE DE LA VERTONNE', '50 RUE JEAN JAURES', '29 QUAI DE VERSAILLES', 'GRACE ROAD ATHLONE', '8 RUE DESCARTES', '11 RUE Allemagne', '4 RUE ALFRED KASTLER', '12 H rue du Pâtis Tatelin - CS 50855', '8 BLD ALBERT EINSTEIN', '1 RUE SUFFREN', '430 RUE DE lAUBINIERE', 'RUE ST GREGOIRE', '14 PLACE DU COMMERCE', 'ZI DE VILLEJAMES', 'rue capgeminie', 'rue de hp', 'rue de boulanger', 'rue de la fnac');
@@ -426,7 +566,7 @@ for ($i = 0; $i < count($listeAdresse); $i++) {
 
 
     echo $sql;
-    $pdo->query($sql);
+   // $pdo->query($sql);
     echo "<br>";
     echo "<br>";
 }
